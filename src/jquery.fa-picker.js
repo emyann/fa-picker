@@ -8,7 +8,7 @@
             target: "",
             iconsFile: "../src/jquery.fa-picker.json",
             template: "",
-            container:{}
+            container: {}
         };
 
     function Plugin(element, options) {
@@ -46,7 +46,7 @@
                 _self.buildModalContent(event);
             });
             $(document).on("shown.bs.modal", function(event) {
-                 _self.buidlModalLayout(event);
+                _self.buidlModalLayout(event);
             });
         },
         bootstrapIt: function() {
@@ -65,7 +65,7 @@
                             $.each(listIcons, function(index, icon) {
                                 $iconsContainer.append("<div class='item'><i class='fa fa-" + icon.id + " fa-2x'></i></div>");
                             });
-                           
+
                         });
                 }
 
@@ -74,10 +74,10 @@
         },
         buidlModalLayout: function() {
             var _self = this;
-            var container = _self.settings.container[0];
-            var msnry = new Masonry(container, {
-                columnWidth: 50,
-                itemSelector: '.item'
+            _self.settings.container.isotope({
+                // options
+                itemSelector: '.item',
+                layoutMode: 'fitRows'
             });
         }
 

@@ -1,6 +1,6 @@
 #FontAwesome Bootstrap Picker
 
-Built-on top of masonry.js, this jQuery plugin runs into Bootstrap context and provides a way to browse all `font-awesome` 4 icons using masonry dynamic placement. FaPicker uses a json-parsed yml file called `icons.yml` which is located into Font Awesome official repository. That allows to provide all necessary metadata in order to improve user browsing experience.
+This jQuery plugin runs into Bootstrap context and provides a way to browse all `font-awesome` 4 icons using `isotope` dynamic placement. FaPicker uses a json-parsed yml file called `icons.yml` which is located into Font Awesome official repository. That allows to provide all necessary metadata in order to improve user browsing experience.
 
 
 ##Demos
