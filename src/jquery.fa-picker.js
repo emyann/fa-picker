@@ -8,14 +8,14 @@
             target: "",
             iconsFile: "../src/jquery.fa-picker.json",
             template: "",
-            container: ""
+            container:{}
         };
 
     function Plugin(element, options) {
         this.element = element;
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
-        this._iconsList=[];
+        this._iconsList = [];
         this._name = pluginName;
         this.init();
     }
@@ -26,25 +26,27 @@
             this.bindListeners();
         },
         getListIcons: function() {
-    		var deferred = new jQuery.Deferred();
-        	var _self=this;
-        	// Do some kind of singleton to load json data once
-           	if(_self._iconsList.length == 0){
-				return  $.getJSON(_self.settings.iconsFile).then(function(data) {  
-					_self._iconsList = data.icons;           	
-                	return _self._iconsList;
-            	}); 
-			}
-			else{
-				deferred.resolve(_self._iconsList);
-				return deferred.promise();
-			}
+            var deferred = new jQuery.Deferred();
+            var _self = this;
+            // Do some kind of singleton to load json data once
+            if (_self._iconsList.length == 0) {
+                return $.getJSON(_self.settings.iconsFile).then(function(data) {
+                    _self._iconsList = data.icons;
+                    return _self._iconsList;
+                });
+            } else {
+                deferred.resolve(_self._iconsList);
+                return deferred.promise();
+            }
 
         },
         bindListeners: function() {
             var _self = this;
             $(document).on("show.bs.modal", function(event) {
                 _self.buildModalContent(event);
+            });
+            $(document).on("shown.bs.modal", function(event) {
+                 _self.buidlModalLayout(event);
             });
         },
         bootstrapIt: function() {
@@ -54,24 +56,32 @@
         buildModalContent: function(event) {
             var _self = this;
 
-            if (event.relatedTarget === _self.element) { // Check wether the event is aimed to this element
-            	
-              
-               	if(_self._iconsList.length ==0){
-               		 	var $iconsContainer= $(event.target).find(".modal-body").html("<div class='fa-container'></div>").find(".fa-container");
-           			_self.getListIcons()
-           			.done(function(listIcons){
-           				console.log($iconsContainer[0]);
-           				$.each(listIcons,function(index,icon){
-           					//console.log($iconsContainer);
-           					$iconsContainer.append("<div class='item'><i class='fa fa-glass fa-2x'></i></div>");
-           				});
-           			});
-               	}
-           		
+            if (event.relatedTarget === _self.element) { // Check wether the event is aimed to this element              
+                if (_self._iconsList.length == 0) {
+                    var $iconsContainer = $(event.target).find(".modal-body").html("<div class='fa-container'></div>").find(".fa-container");
+                    _self.settings.container = $iconsContainer;
+                    _self.getListIcons()
+                        .done(function(listIcons) {
+                            $.each(listIcons, function(index, icon) {
+                                $iconsContainer.append("<div class='item'><i class='fa fa-" + icon.id + " fa-2x'></i></div>");
+                            });
+                           
+                        });
+                }
+
             }
 
+        },
+        buidlModalLayout: function() {
+            var _self = this;
+            var container = _self.settings.container[0];
+            var msnry = new Masonry(container, {
+                columnWidth: 50,
+                itemSelector: '.item'
+            });
         }
+
+
 
     };
 
