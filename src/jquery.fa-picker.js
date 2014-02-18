@@ -13,7 +13,9 @@
 
     function Plugin(element, options) {
         this.element = element;
-        this.settings = $.extend({}, defaults, options);
+        console.log($(element).data());
+        this.settings = $.extend({}, defaults, options,$(element).data());
+        console.log(this.settings);
         this._defaults = defaults;
         this._iconsList = [];
         this._name = pluginName;
@@ -88,7 +90,7 @@
 
     $.fn[pluginName] = function(options) {
         this.each(function() {
-            if (!$.data(this, "plugin_" + pluginName)) {
+            if (!$.data(this, "plugin_" + pluginName)) {            	
                 $.data(this, "plugin_" + pluginName, new Plugin(this, options));
             }
         });
