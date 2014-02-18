@@ -23,3 +23,9 @@ Global instantiation
 ``` js
   $("[data-dnp-widget='fapicker']").faPicker();
 ```
+
+## Todo
+
+- [ ] Build Grid Layout
+- [ ] Medata Filters and sorters
+- [ ] Export selected icon data
