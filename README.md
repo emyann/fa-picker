@@ -3,7 +3,7 @@
 Built-on top of masonry.js, this jQuery plugin runs into Bootstrap context and provides a way to browse all `font-awesome` 4 icons using masonry dynamic placement. FaPicker uses a json-parsed yml file called `icons.yml` which is located into Font Awesome official repository. That allows to provides all necessary metadata in order to improving user browinsg experience.
 
 ## Initialize
-### In HTML
+### In HTML 
 
 ``` html
   <input type="text" id="myElement" name="TileIcon" data-dnp-widget="fapicker" title="Icon Title" placeholder="Ex: fa fa-envelope" value="">
