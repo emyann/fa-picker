@@ -1,7 +1,7 @@
 ;
 (function($, window, document, undefined) {
 
-    // Create the defaults once
+
     //@target Target where to write the picked icon
     var pluginName = "faPicker",
         defaults = {
@@ -10,8 +10,6 @@
             template: "",
             container: ""
         };
-
-    // The actual plugin constructor
 
     function Plugin(element, options) {
         this.element = element;
@@ -58,23 +56,26 @@
 
             if (event.relatedTarget === _self.element) { // Check wether the event is aimed to this element
             	
-               	var $iconsContainer= $(event.target).find(".modal-body").append("<div class='fa-container'></div>");
-           		_self.getListIcons()
+              
+               	if(_self._iconsList.length ==0){
+               		 	var $iconsContainer= $(event.target).find(".modal-body").html("<div class='fa-container'></div>").find(".fa-container");
+           			_self.getListIcons()
            			.done(function(listIcons){
-           				console.log(listIcons.length);
+           				console.log($iconsContainer[0]);
            				$.each(listIcons,function(index,icon){
            					//console.log($iconsContainer);
-           					//$iconsContainer.append("<div class='item'><i class='fa fa-"+icon.id+" fa-2x'></i></div>");
+           					$iconsContainer.append("<div class='item'><i class='fa fa-glass fa-2x'></i></div>");
            				});
            			});
+               	}
+           		
             }
 
         }
 
     };
 
-    // A really lightweight plugin wrapper around the constructor,
-    // preventing against multiple instantiations
+
     $.fn[pluginName] = function(options) {
         this.each(function() {
             if (!$.data(this, "plugin_" + pluginName)) {
@@ -82,7 +83,6 @@
             }
         });
 
-        // chain jQuery functions
         return this;
     };
 
