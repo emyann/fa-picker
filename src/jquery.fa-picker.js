@@ -6,7 +6,8 @@
 				defaults = {
 				target: "",
 				iconsFile:"../src/jquery.fa-picker.json",
-				template:""
+				template:"",
+				container:""
 		};
 
 		// The actual plugin constructor
@@ -20,11 +21,22 @@
 
 		Plugin.prototype = {
 				init: function () {
-					this.loadIcons(this.settings);
+					this.bootstrapIt();
+					this.bindListeners();
+					this.loadIcons();
 				},
 				loadIcons: function () {
-						return $.getJSON(this.settings.iconsFile);
+						return $.getJSON(this.settings.iconsFile).then(function(data){
+							return data;
+						});
 
+				},
+				bindListeners:function(){
+				
+				},
+				bootstrapIt:function(){
+					this.element.setAttribute("data-toggle","modal");
+					this.element.setAttribute("data-target","#myModal");
 				}
 		};
 
