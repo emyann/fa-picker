@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>jQuery Boilerplate</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="../src/jquery.boilerplate.js"></script>
-	</head>
-	<body>
-		<div class="form-horizontal col-sm-12">
-            <div class="form-group">
-                <label for="TileIcon" class="col-sm-2 control-label">Icône</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="TileIcon" name="TileIcon" data-dnp-widget="fapicker" title="Nom de l'icône" placeholder="Ex: fa fa-envelope" value="icon-th-large">
-                </div>
-            </div>
 
+<head>
+    <title>jQuery Boilerplate</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../src/lib/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="form-horizontal col-sm-12">
+                <div class="form-group">
+                    <label for="TileIcon" class="col-sm-2 control-label">Icône</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="TileIcon" name="TileIcon" data-dnp-widget="fapicker" title="Nom de l'icône" placeholder="Ex: fa fa-envelope" value="icon-th-large">
+                    </div>
+                </div>
+
+            </div>
         </div>
-		<script>
-			$(function() {
-				$("#TileIcon").faPicker({
-					propertyName: "a custom value"
-				});
-			});
-		</script>
-	</body>
+
+    </div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="../src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../src/jquery.fa-picker.js"></script>
+    <script>
+    $(function() {
+        $("#TileIcon").faPicker();
+    });
+    </script>
+</body>
+
 </html>

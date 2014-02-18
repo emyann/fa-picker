@@ -12,9 +12,12 @@
 		// minified (especially when both are regularly referenced in your plugin).
 
 		// Create the defaults once
+		//@target Target where to write the picked icon
 		var pluginName = "faPicker",
 				defaults = {
-				propertyName: "value"
+				target: "",
+				iconsFile:"../src/jquery.fa-picker.json",
+				template:""
 		};
 
 		// The actual plugin constructor
@@ -39,9 +42,12 @@
 						// you can add more functions like the one below and
 						// call them like so: this.yourOtherFunction(this.element, this.settings).
 						console.log("xD");
+						console.log(this.loadIcons(this.settings));
 				},
-				yourOtherFunction: function () {
-						// some logic
+				loadIcons: function () {
+						console.log(this);
+						return $.getJSON(this.settings.iconsFile);
+
 				}
 		};
 
