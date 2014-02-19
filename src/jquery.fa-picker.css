@@ -1,0 +1,9 @@
+.fa-container .fa-item{
+	background:#e67e22;
+}
+.fa-container .fa-item a{
+	display: block;
+	color:white;
+	font-size: 1.2em;
+
+}

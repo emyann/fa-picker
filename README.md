@@ -27,6 +27,7 @@ Global instantiation
 ## Todo
 
 - [X] Build Grid Layout
-- [ ] Medata Filters and sorters
+- [ ] Medata Filters
+- [X] Metadata Sorters
 - [ ] Export selected icon data
 - [ ] Events: broadcast chosen icon

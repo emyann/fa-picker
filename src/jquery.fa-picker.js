@@ -8,14 +8,16 @@
             target: "",
             iconsFile: "../src/jquery.fa-picker.json",
             template: "",
-            container: {}
+            containers: {icons:".fa-container", 
+            			filters:".fa-filters-toolbar",
+            			sorters:".fa-sorters-toolbar"}
         };
 
     function Plugin(element, options) {
         this.element = element;
-        console.log($(element).data());
-        this.settings = $.extend({}, defaults, options,$(element).data());
-        console.log(this.settings);
+
+        this.settings = $.extend({}, defaults, options, $(element).data());
+
         this._defaults = defaults;
         this._iconsList = [];
         this._name = pluginName;
@@ -44,12 +46,18 @@
         },
         bindListeners: function() {
             var _self = this;
+
             $(document).on("show.bs.modal", function(event) {
                 _self.buildModalContent(event);
             });
             $(document).on("shown.bs.modal", function(event) {
                 _self.buidlModalLayout(event);
             });
+            // bind sort button click
+			$(document).on( 'click', _self.settings.containers.sorters +" .btn-primary", function() {
+			    var sortValue = $(this).attr('data-sort-value');
+			    $(_self.settings.containers.icons).isotope({ sortBy: sortValue });
+			});
         },
         bootstrapIt: function() {
             this.element.setAttribute("data-toggle", "modal");
@@ -60,13 +68,17 @@
 
             if (event.relatedTarget === _self.element) { // Check wether the event is aimed to this element              
                 if (_self._iconsList.length == 0) {
-                    var $iconsContainer = $(event.target).find(".modal-body").html("<div class='fa-container'></div>").find(".fa-container");
+                    var $iconsContainer = $("<div class='fa-container'></div>")
                     _self.settings.container = $iconsContainer;
                     _self.getListIcons()
                         .done(function(listIcons) {
                             $.each(listIcons, function(index, icon) {
-                                $iconsContainer.append("<div class='item'><i class='fa fa-" + icon.id + " fa-2x'></i></div>");
+
+                                $iconsContainer.append("<div class='fa-item " + icon.categories.join(", ") 
+                                	+ "'><a href='javascript:void(0)'><i class='fa fa-" 
+                                	+ icon.id + " fa-2x'></i></a><h4 class='name'>"+icon.name+"</h4></div>");
                             });
+                            $(event.target).find(".modal-body").html($iconsContainer);
 
                         });
                 }
@@ -76,12 +88,18 @@
         },
         buidlModalLayout: function() {
             var _self = this;
-            _self.settings.container.isotope({
+           $(_self.settings.containers.icons).isotope({
                 // options
-                itemSelector: '.item',
-                layoutMode: 'fitRows'
+                itemSelector: '.fa-item',
+                layoutMode: 'fitRows',
+                getSortData: {
+                    name: '.name'
+                },
             });
-        }
+        },
+
+
+
 
 
 
@@ -90,7 +108,7 @@
 
     $.fn[pluginName] = function(options) {
         this.each(function() {
-            if (!$.data(this, "plugin_" + pluginName)) {            	
+            if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName, new Plugin(this, options));
             }
         });

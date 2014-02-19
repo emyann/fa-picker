@@ -5,7 +5,8 @@
     <title>jQuery Boilerplate</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../src/lib/bootstrap/dist/css/bootstrap.min.css">
-         <link rel="stylesheet" href="../src/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../src/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../src/jquery.fa-picker.css">
 
 
 </head>
@@ -17,7 +18,7 @@
                 <div class="form-group">
                     <label for="TileIcon" class="col-sm-2 control-label">Icône</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="TileIcon" name="TileIcon" data-dnp-widget="fapicker"  title="Nom de l'icône" placeholder="Ex: fa fa-envelope" value="">
+                        <input type="text" class="form-control" id="TileIcon" name="TileIcon" data-dnp-widget="fapicker" title="Nom de l'icône" placeholder="Sélectionnez le champ" value="">
                     </div>
                 </div>
 
@@ -25,42 +26,51 @@
             <div id="result" class="col-sm-12"></div>
         </div>
         <div class="row">
-        	
-        	<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Sélectionner une icône</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                <div class="btn-group fa-sorters-toolbar" data-toggle="buttons">
+                                    <label class="btn btn-primary ">
+                                        <input type="radio" name="options" id="option1">Option 1
+                                    </label>
+                                    <label class="btn btn-primary" data-dnp-action="sortBy" data-sort-value="name">
+                                        <input type="radio" name="options" id="option2">Nom
+                                    </label>
+                                </div>
+
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
 
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="../src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../src/lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="../src/jquery.fa-picker.js"></script>
-    <script>
-    $(function() {
-        $("#TileIcon").faPicker();
-    });
-    </script>
-    <style type="text/css">
-
-       /* .item { width: 25%; }*/
-    </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script src="../src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../src/lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="../src/jquery.fa-picker.js"></script>
+        <script>
+        $(function() {
+            $("#TileIcon").faPicker();
+        });
+        </script>
+        <style type="text/css">
+        /* .item { width: 25%; }*/
+        </style>
 </body>
 
 </html>
