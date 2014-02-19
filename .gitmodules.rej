@@ -1,0 +1,15 @@
+diff a/.gitmodules b/.gitmodules	(rejected hunks)
+@@ -2,6 +3,12 @@
+++<<<<<<< HEAD
+ +[submodule "src/lib/bootstrap"]
+ +	path = src/lib/bootstrap
+ +	url = https://github.com/twbs/bootstrap.git
+ +[submodule "src/lib/font-awesome"]
+ +	path = src/lib/font-awesome
+- 	url = https://github.com/FortAwesome/Font-Awesome.git
+++	url = https://github.com/FortAwesome/Font-Awesome.git
+++=======
++ [submodule "fa-picker"]
++ 	path = fa-picker
++ 	url = https://github.com/emyann/fa-picker.git
+++>>>>>>> Add Demo page
