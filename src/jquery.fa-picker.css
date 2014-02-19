@@ -1,5 +1,7 @@
 .fa-container .fa-item{
 	background:#e67e22;
+	margin: 0.5em;
+	width: 50px;
 }
 .fa-container .fa-item a{
 	display: block;

@@ -21,7 +21,11 @@
                         <input type="text" class="form-control" id="TileIcon" name="TileIcon" data-dnp-widget="fapicker" title="Nom de l'icône" placeholder="Sélectionnez le champ" value="">
                     </div>
                 </div>
-
+                    <label for="TileIcon2" class="col-sm-2 control-label">Icône2</label>
+                    <div class="col-sm-4">
+                       <button type="button" class="btn btn-success" id="TileIcon2">Sélectionner une icône</button>
+                    </div>
+                </div>
             </div>
             <div id="result" class="col-sm-12"></div>
         </div>
@@ -38,7 +42,7 @@
                             </h4>
                             <div class="btn-group fa-sorters-toolbar col-sm-8" data-toggle="buttons">
                                     <label class="btn btn-primary ">
-                                        <input type="radio" name="options" id="option1">Tous
+                                        <input type="radio" data-dnp-action="sortBy" name="options" id="option1">Tous
                                     </label>
                                     <label class="btn btn-primary" data-dnp-action="sortBy" data-sort-value="name">
                                         <input type="radio" name="options" id="option2">Nom
@@ -65,7 +69,7 @@
         <script src="../src/jquery.fa-picker.js"></script>
         <script>
         $(function() {
-            $("#TileIcon").faPicker();
+            $("#TileIcon,#TileIcon2").faPicker();
         });
         </script>
         <style type="text/css">

@@ -1,7 +1,5 @@
 ;
 (function($, window, document, undefined) {
-
-
     //@target Target where to write the picked icon
     var pluginName = "faPicker",
         defaults = {
@@ -58,6 +56,11 @@
 			    var sortValue = $(this).attr('data-sort-value');
 			    $(_self.settings.containers.icons).isotope({ sortBy: sortValue });
 			});
+            // filter items on button click
+            $(document).on( 'click',  _self.settings.containers.filters + ' a', function( event ) {
+              var filterValue = $(this).attr('data-filter-value');
+              $(_self.settings.containers.icons).isotope({ filter: filterValue });
+            });
         },
         //If Bootstrap is enabled, put all mechanics on element on which fa-picker is activated
         bootstrapIt: function() {
@@ -66,7 +69,6 @@
         },
         buildModalContent: function(event) {
             var _self = this;
-
             if (event.relatedTarget === _self.element) { // Check wether the event is aimed to this element              
                 if (_self._iconsList.length == 0) {                   
                     _self.getListIcons()
@@ -74,12 +76,9 @@
                             $(event.target).find(".modal-body").html(_self.getHtmlIconsContainer(listIcons));  
                             var arrayFilters=  _self.extractFiltersFromListIcons();
                             $(event.target).find(".modal-body").prepend( _self.getHtmlFiltersToolbar(arrayFilters));                             
-                        });
-                    
+                        });                    
                 }
-
             }
-
         },
         buidlModalLayout: function() {
             var _self = this;
@@ -96,15 +95,14 @@
         getHtmlFiltersToolbar:function(filters){
           var  _self=this;
             var $toolbar= $("<div class='col-sm-3 "+_self.settings.containers.filters.substring(1)+"'><h4>Filtrer par: </h4></div>");            
-            var $rowsContainer= $toolbar.append("<ul class=\"list-group\"></ul>");
-            console.log($rowsContainer);
+            var $rowsContainer= $("<div class=\"list-group\"></div>");
             $.each(filters,function(index,filter){
-                var rowHtml="<li class=\"list-group-item\">"
-                            +"<span class=\"badge\">14</span>"
-                            +" Cras justo odio   </li>  </ul>";
+                var rowHtml="<a data-filter-value=\"."+_self.getFilterHash(filter)+"\" href='javascript:void(0) 'class=\"list-group-item\">"
+                            +""
+                            +filter+"    </li>  </ul>";
                 $rowsContainer.append(rowHtml);
             });
-
+            $toolbar.append($rowsContainer);
             return $toolbar;
                         
         },
@@ -112,9 +110,13 @@
             var _self=this;
             var $iconsContainer = $("<div class='col-sm-9'><div class='"+_self.settings.containers.icons.substring(1)+"'></div></div>");
             $.each(listIcons, function(index, icon) {
-                $iconsContainer.find(_self.settings.containers.icons).append("<div data-fa-name='"+icon.name+"' class='fa-item " + icon.categories.join(", ") 
+                var filterClasses="";
+                $.each(icon.categories,function(index,category){
+                    filterClasses += " "+_self.getFilterHash(category);
+                });
+                $iconsContainer.find(_self.settings.containers.icons).append("<div data-fa-name='"+icon.name+"' class='fa-item" + filterClasses 
                     + "'><a href='javascript:void(0)'><i class='fa fa-" 
-                    + icon.id + " fa-2x'></i></a><h4>"+icon.name+"</h4></div>");
+                    + icon.id + " fa-2x'></i><span>"+icon.name+"</span></a></div>");
             });
             return $iconsContainer;
         },
@@ -126,17 +128,22 @@
             var arrayFilters=[];
             $.each(this._iconsList,function(index,item){
               $.merge(arrayFilters,item.categories);
-            });            
-            return $.unique(arrayFilters);
+            });           ;
+            return $.unique($.unique($.unique($.unique(arrayFilters)))); // /!\ToDo still don't understand why I have to do stack all ugly recursive unique: awful
+
+        },
+        getFilterHash: function(filterStr){
+            var hash = 0;
+            if (filterStr.length == 0) return hash;
+            for (i = 0; i < filterStr.length; i++) {
+                char = filterStr.charCodeAt(i);
+                hash = ((hash<<5)-hash)+char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash;
         }
 
-
-
-
-
-
     };
-
 
     $.fn[pluginName] = function(options) {
         this.each(function() {
@@ -144,7 +151,6 @@
                 $.data(this, "plugin_" + pluginName, new Plugin(this, options));
             }
         });
-
         return this;
     };
 
