@@ -28,25 +28,25 @@
         <div class="row">
 
             <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="faModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header clearfix">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">
-                                <div class="btn-group fa-sorters-toolbar" data-toggle="buttons">
+                            <h4 class="modal-title col-sm-3" id="myModalLabel">
+                              Trier par:
+                            </h4>
+                            <div class="btn-group fa-sorters-toolbar col-sm-8" data-toggle="buttons">
                                     <label class="btn btn-primary ">
-                                        <input type="radio" name="options" id="option1">Option 1
+                                        <input type="radio" name="options" id="option1">Tous
                                     </label>
                                     <label class="btn btn-primary" data-dnp-action="sortBy" data-sort-value="name">
                                         <input type="radio" name="options" id="option2">Nom
                                     </label>
                                 </div>
-
-                            </h4>
                         </div>
-                        <div class="modal-body">
-
+                        <div class="modal-body clearfix">
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

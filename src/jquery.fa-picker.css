@@ -7,3 +7,8 @@
 	font-size: 1.2em;
 
 }
+
+#faModal .modal-dialog
+{
+  width: 800px;
+}

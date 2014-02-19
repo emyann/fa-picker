@@ -5,7 +5,7 @@
     //@target Target where to write the picked icon
     var pluginName = "faPicker",
         defaults = {
-            target: "",
+            target: "#faModal",
             iconsFile: "../src/jquery.fa-picker.json",
             template: "",
             containers: {icons:".fa-container", 
@@ -15,11 +15,9 @@
 
     function Plugin(element, options) {
         this.element = element;
-
         this.settings = $.extend({}, defaults, options, $(element).data());
-
         this._defaults = defaults;
-        this._iconsList = [];
+        this._iconsList = []; // private field for icons data storage
         this._name = pluginName;
         this.init();
     }
@@ -29,6 +27,7 @@
             this.bootstrapIt(); // bootstrap element on which plugin has been activated
             this.bindListeners();
         },
+        //Promise that provides json structured data of font awesome icons
         getListIcons: function() {
             var deferred = new jQuery.Deferred();
             var _self = this;
@@ -44,6 +43,7 @@
             }
 
         },
+        //Binding of all listeners used into fa-picker
         bindListeners: function() {
             var _self = this;
 
@@ -54,33 +54,28 @@
                 _self.buidlModalLayout(event);
             });
             // bind sort button click
-			$(document).on( 'click', _self.settings.containers.sorters +" .btn-primary", function() {
+			$(document).on('click', _self.settings.containers.sorters +" .btn-primary", function() {
 			    var sortValue = $(this).attr('data-sort-value');
 			    $(_self.settings.containers.icons).isotope({ sortBy: sortValue });
 			});
         },
+        //If Bootstrap is enabled, put all mechanics on element on which fa-picker is activated
         bootstrapIt: function() {
             this.element.setAttribute("data-toggle", "modal");
-            this.element.setAttribute("data-target", "#myModal");
+            this.element.setAttribute("data-target", this.settings.target);
         },
         buildModalContent: function(event) {
             var _self = this;
 
             if (event.relatedTarget === _self.element) { // Check wether the event is aimed to this element              
-                if (_self._iconsList.length == 0) {
-                    var $iconsContainer = $("<div class='fa-container'></div>")
-                    _self.settings.container = $iconsContainer;
+                if (_self._iconsList.length == 0) {                   
                     _self.getListIcons()
-                        .done(function(listIcons) {
-                            $.each(listIcons, function(index, icon) {
-
-                                $iconsContainer.append("<div class='fa-item " + icon.categories.join(", ") 
-                                	+ "'><a href='javascript:void(0)'><i class='fa fa-" 
-                                	+ icon.id + " fa-2x'></i></a><h4 class='name'>"+icon.name+"</h4></div>");
-                            });
-                            $(event.target).find(".modal-body").html($iconsContainer);
-
+                        .done(function(listIcons) {                            
+                            $(event.target).find(".modal-body").html(_self.getHtmlIconsContainer(listIcons));  
+                            var arrayFilters=  _self.extractFiltersFromListIcons();
+                            $(event.target).find(".modal-body").prepend( _self.getHtmlFiltersToolbar(arrayFilters));                             
                         });
+                    
                 }
 
             }
@@ -93,10 +88,47 @@
                 itemSelector: '.fa-item',
                 layoutMode: 'fitRows',
                 getSortData: {
-                    name: '.name'
+                    name: '[data-fa-name]'
                 },
             });
         },
+
+        getHtmlFiltersToolbar:function(filters){
+          var  _self=this;
+            var $toolbar= $("<div class='col-sm-3 "+_self.settings.containers.filters.substring(1)+"'><h4>Filtrer par: </h4></div>");            
+            var $rowsContainer= $toolbar.append("<ul class=\"list-group\"></ul>");
+            console.log($rowsContainer);
+            $.each(filters,function(index,filter){
+                var rowHtml="<li class=\"list-group-item\">"
+                            +"<span class=\"badge\">14</span>"
+                            +" Cras justo odio   </li>  </ul>";
+                $rowsContainer.append(rowHtml);
+            });
+
+            return $toolbar;
+                        
+        },
+        getHtmlIconsContainer:function(listIcons){
+            var _self=this;
+            var $iconsContainer = $("<div class='col-sm-9'><div class='"+_self.settings.containers.icons.substring(1)+"'></div></div>");
+            $.each(listIcons, function(index, icon) {
+                $iconsContainer.find(_self.settings.containers.icons).append("<div data-fa-name='"+icon.name+"' class='fa-item " + icon.categories.join(", ") 
+                    + "'><a href='javascript:void(0)'><i class='fa fa-" 
+                    + icon.id + " fa-2x'></i></a><h4>"+icon.name+"</h4></div>");
+            });
+            return $iconsContainer;
+        },
+        getHtmlSortersToolbar:function(sorters){
+
+        },
+        //Get all unique filters
+        extractFiltersFromListIcons:function(){
+            var arrayFilters=[];
+            $.each(this._iconsList,function(index,item){
+              $.merge(arrayFilters,item.categories);
+            });            
+            return $.unique(arrayFilters);
+        }
 
 
 
