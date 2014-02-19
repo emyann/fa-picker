@@ -11,7 +11,7 @@
             			sorters:".fa-sorters-toolbar"}
         };
 
-    function Plugin(element, options) {
+    function FaPicker(element, options) {
         this.element = element;
         this.settings = $.extend({}, defaults, options, $(element).data());
         this._defaults = defaults;
@@ -20,9 +20,9 @@
         this.init();
     }
 
-    Plugin.prototype = {
+    FaPicker.prototype = {
         init: function() {
-            this.bootstrapIt(); // bootstrap element on which plugin has been activated
+            this.bootstrapIt(); // bootstrap element on which fapicker has been activated
             this.bindListeners();
         },
         //Promise that provides json structured data of font awesome icons
@@ -148,7 +148,7 @@
     $.fn[pluginName] = function(options) {
         this.each(function() {
             if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+                $.data(this, "plugin_" + pluginName, new FaPicker(this, options));
             }
         });
         return this;
