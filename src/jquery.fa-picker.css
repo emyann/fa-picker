@@ -4,19 +4,25 @@
 .fa-container .fa-item {
     /* background:#e67e22; */
     margin: 0 0.5em 0.5em 0.5em;
-    width: 50px;
+    width: 60px;
 }
 .fa-container .fa-item a {
     display: block;
     color:white;
-    font-size: 1.2em;
+    font-size: 1.4em;
     text-align: center;
+    word-wrap: break-word;
+    /* -webkit-hyphenate-character: auto; */
+}
+
+.fa-container .fa-item a i{
+	text-shadow: black 2px 3px 0px;
 }
 .fa-container .fa-item a:hover {
   text-decoration: none;
 }
 .fa-container .fa-item .name {
-    font-size:0.8em;
+    font-size: 0.6em;
     display: block;
 }
 #faModal .modal-dialog {
