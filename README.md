@@ -4,6 +4,7 @@ This jQuery plugin runs into Bootstrap context and provides a way to browse all 
 
 
 ##Demos
+FaPicker demo website [here](http://emyann.github.io/fa-picker/demo1.html)  
 See the demo page [here](http://emyann.github.io/fa-picker/demo1.html)  
 
 
@@ -28,7 +29,9 @@ Global instantiation
 ## Todo
 
 - [X] Build Grid Layout
-- [ ] Medata Filters
+- [X] Medata Filters
 - [X] Metadata Sorters
-- [ ] Export selected icon data
-- [ ] Events: broadcast chosen icon
+- [_] Infinite Scroll
+- [_] 
+- [_] Export selected icon data
+- [_] Events: broadcast chosen icon
