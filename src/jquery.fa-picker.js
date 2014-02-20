@@ -116,7 +116,7 @@
                 });
                 $iconsContainer.find(_self.settings.containers.icons).append("<div data-fa-name='"+icon.name+"' class='fa-item" + filterClasses 
                     + "'><a href='javascript:void(0)'><i class='fa fa-" 
-                    + icon.id + " fa-2x'></i><span>"+icon.name+"</span></a></div>");
+                    + icon.id + " fa-2x'></i><span class='name'>"+icon.name+"</span></a></div>");
             });
             return $iconsContainer;
         },
