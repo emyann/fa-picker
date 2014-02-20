@@ -4,7 +4,7 @@ This jQuery plugin runs into Bootstrap context and provides a way to browse all 
 
 
 ##Demos
-FaPicker demo website [here](http://emyann.github.io/fa-picker/demo1.html)  
+FaPicker demo website [here](http://emyann.github.io/fa-picker)  
 See the demo page [here](http://emyann.github.io/fa-picker/demo1.html)  
 
 
