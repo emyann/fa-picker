@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Boilerplate</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../src/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../src/jquery.fa-picker.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="form-horizontal col-sm-12">
+                <div class="form-group">
+                    <label for="TileIcon" class="col-sm-2 control-label">Icône</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="TileIcon" name="TileIcon" data-dnp-widget="fapicker" title="Nom de l'icône" placeholder="Sélectionnez le champ" value="">
+                    </div>
+                </div>
+                    <label for="TileIcon2" class="col-sm-2 control-label">Icône2</label>
+                    <div class="col-sm-4">
+                       <button type="button" class="btn btn-success" id="TileIcon2">Sélectionner une icône</button>
+                    </div>
+                </div>
+            </div>
+            <div id="result" class="col-sm-12"></div>
+        </div>
+        <div class="row">
+
+            <!-- Modal -->
+            <div class="modal fade" id="faModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header clearfix">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title col-sm-3" id="myModalLabel">
+                              Trier par:
+                            </h4>
+                            <div class="btn-group fa-sorters-toolbar col-sm-8" data-toggle="buttons">
+                                    <label class="btn btn-primary ">
+                                        <input type="radio" data-dnp-action="sortBy" name="options" id="option1">Tous
+                                    </label>
+                                    <label class="btn btn-primary" data-dnp-action="sortBy" data-sort-value="name">
+                                        <input type="radio" name="options" id="option2">Nom
+                                    </label>
+                                </div>
+                        </div>
+                        <div class="modal-body row">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script src="../src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../src/lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="../src/jquery.fa-picker.js"></script>
+        <script>
+        $(function() {
+            $("#TileIcon,#TileIcon2").faPicker();
+        });
+        </script>
+</body>
+
+</html>
