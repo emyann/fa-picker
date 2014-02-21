@@ -20,12 +20,12 @@
 }
 
 .fa-container .fa-item a i{
-	/* text-shadow: black 3px 3px 1px; */
-	display: block;
-	padding: 0.1em;
-	background: #34495E;
-	/* border-radius: 100%; */
-	box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    /* text-shadow: black 3px 3px 1px; */
+    display: block;
+    padding: 0.1em;
+    background: #34495E;
+    /* border-radius: 100%; */
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 .fa-container .fa-item a:hover {
   text-decoration: none;
