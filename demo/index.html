@@ -2,10 +2,10 @@
 <html>
 
 <head>
-    <title>jQuery Boilerplate</title>
+    <title>Font Awesome Picker</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../src/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../src/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="../src/jquery.fa-picker.css">
 
 
@@ -49,7 +49,7 @@
                                     </label>
                                 </div>
                         </div>
-                        <div class="modal-body row">
+                        <div class="modal-body clearfix">
                             
                         </div>
                         <div class="modal-footer">
@@ -64,14 +64,17 @@
 
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-        <script src="../src/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="../src/lib/isotope/isotope.pkgd.min.js"></script>
         <script src="../src/jquery.fa-picker.js"></script>
         <script>
         $(function() {
-            $("#TileIcon,#TileIcon2").faPicker();
+            $("#TileIcon,#TileIcon2").faPicker({
+                iconsFile:"../src/jquery.fa-picker.json"
+            });
         });
         </script>
+
 </body>
 
 </html>
