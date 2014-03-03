@@ -1,36 +1,26 @@
-.fa-container {
-    /* background: #e74c3c; */
-    /* background: #2980B9; */
-}
-.fa-container .fa-item {
-    /* background:#e67e22; */
+.fa-icons-container .fa-item {
     margin: 0 0.5em 0.5em 0.5em;
     width: 60px;
-    /* color: white; */
 }
-.fa-container .fa-item a {
+.fa-icons-container .fa-item a {
     display: block;
     color: #eee;
     font-size: 1.4em;
     text-align: center;
     word-wrap: break-word;
-    /* -webkit-hyphenate-character: auto; */
-    /* background: #C0392B; */
     padding: 0.3em;
 }
 
-.fa-container .fa-item a i{
-	/* text-shadow: black 3px 3px 1px; */
-	display: block;
-	padding: 0.1em;
-	background: #34495E;
-	/* border-radius: 100%; */
-	box-shadow: 0 0 10px rgba(0,0,0,0.4);
+.fa-icons-container .fa-item a i{
+    display: block;
+    padding: 0.1em;
+    background: #34495E;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
-.fa-container .fa-item a:hover {
+.fa-icons-container .fa-item a:hover {
   text-decoration: none;
 }
-.fa-container .fa-item .name {
+.fa-icons-container .fa-item .name {
     font-size: 0.6em;
     display: block;
     color: #34495E;
@@ -38,6 +28,7 @@
 #faModal .modal-dialog {
     width: 900px;
 }
-#faModal .modal-dialog .modal-body {
-    padding:0;
+
+#faModal .modal-header, #faModal .modal-footer{
+    display: none;
 }
