@@ -1,14 +1,23 @@
 ;
 (function($, window, document, undefined) {
-    //@target Target where to write the picked icon
+    
+    /*
+    @target Target where to write the picked icon
+    @autoProvision FaPicker tries to push the name of the icon to the attached or aimed control
+    @targetControl jQuery selector, Works with @autoProvision setting. Control to which FaPicker push icon data
+    */
     var pluginName = "faPicker",
         defaults = {
-            target: "#faModal",
+            targetContainer: "#faModal",
+            autoProvision:false,
+            targetControl:null,
             iconsFile: "../src/jquery.fa-picker.json",
-            template: "",
-            containers: {icons:".fa-container", 
-            			filters:".fa-filters-toolbar",
-            			sorters:".fa-sorters-toolbar"}
+            template: null,
+            containers: {
+                icons:".fa-icons-container", 
+                        filters:".fa-filters-toolbar",
+                        sorters:".fa-sorters-toolbar"},
+            onIconSelected:null //triggers when an icon is selected
         };
 
     function FaPicker(element, options) {
@@ -30,8 +39,13 @@
             var deferred = new jQuery.Deferred();
             var _self = this;
             // Do some kind of singleton to load json data once
-            if (_self._iconsList.length == 0) {
-                return $.getJSON(_self.settings.iconsFile).then(function(data) {
+            if (_self._iconsList.length === 0) {
+                var ajaxOptions={
+                    url:_self.settings.iconsFile,
+                    dataType:"json",
+                    mimeType:"application/json"
+                };
+                return $.ajax(ajaxOptions).then(function(data) {
                     _self._iconsList = data.icons;
                     return _self._iconsList;
                 });
@@ -52,20 +66,41 @@
                 _self.buidlModalLayout(event);
             });
             // bind sort button click
-			$(document).on('click', _self.settings.containers.sorters +" .btn-primary", function() {
-			    var sortValue = $(this).attr('data-sort-value');
-			    $(_self.settings.containers.icons).isotope({ sortBy: sortValue });
-			});
+            $(document).on('click', _self.settings.containers.sorters +" .btn-primary", function() {
+                var sortValue = $(this).attr('data-sort-value');
+                $(_self.settings.containers.icons).isotope({ sortBy: sortValue });
+            });
             // filter items on button click
             $(document).on( 'click',  _self.settings.containers.filters + ' a', function( event ) {
               var filterValue = $(this).attr('data-filter-value');
               $(_self.settings.containers.icons).isotope({ filter: filterValue });
             });
+
+            $(document).on("click",_self.settings.containers.icons+" a", function(event){
+                var $this= $(event.target);            
+                var iconName= $this.closest(".fa-item").data("fa-name");
+                var iconData=$.grep(_self._iconsList,function(icon,index){
+                    return icon.name === iconName;
+                })[0];
+                var icon= $.extend({},new FaIcon(),iconData);
+                if($.isFunction(_self.settings.onIconSelected)) {
+                    _self.settings.onIconSelected.call(icon);
+                }else{ // If none callback is provided, use autoprovision mechanism or trigger an event
+                   if(!_self.settings.autoProvision){
+                         $.event.trigger({
+                                type: "onIconSelected",
+                                icon: icon
+                            });
+                     }else{
+                        _self.populateAttachedControl(icon);
+                     }
+                }
+            });
         },
         //If Bootstrap is enabled, put all mechanics on element on which fa-picker is activated
         bootstrapIt: function() {
             this.element.setAttribute("data-toggle", "modal");
-            this.element.setAttribute("data-target", this.settings.target);
+            this.element.setAttribute("data-target", this.settings.targetContainer);
         },
         buildModalContent: function(event) {
             var _self = this;
@@ -132,6 +167,18 @@
             return $.unique($.unique($.unique($.unique(arrayFilters)))); // /!\ToDo still don't understand why I have to do stack all ugly recursive unique: awful
 
         },
+
+        populateAttachedControl:function(icon){
+            var _self=this;
+            if(_self.settings.autoProvision){
+                var $control= (!_self.settings.targetControl)? $(_self.element):$(_self.settings.targetControl);
+                $control.val("fa-"+icon.id);
+                $control.data("fa-icon-data",icon);
+                $control.attr("data-fa-id",icon.id);
+                $(_self.settings.targetContainer).modal("hide");
+ 
+            }
+        },
         getFilterHash: function(filterStr){
             var hash = 0;
             if (filterStr.length == 0) return hash;
@@ -153,5 +200,19 @@
         });
         return this;
     };
+
+    var FaIcon = (function () {
+    function FaIcon(name, id, unicode, created, categories) {
+        this.name = name;
+        this.id = id;
+        this.unicode = unicode;
+        this.created = created;
+        this.categories = categories;
+    }
+    FaIcon.prototype.getIconHtml = function () {
+        return "<i class='fa fa-" + this.id + "'></i>";
+    };
+    return FaIcon;
+})();
 
 })(jQuery, window, document);
