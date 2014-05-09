@@ -161,10 +161,12 @@
         //Get all unique filters
         extractFiltersFromListIcons:function(){
             var arrayFilters=[];
-            $.each(this._iconsList,function(index,item){
-              $.merge(arrayFilters,item.categories);
-            });           ;
-            return $.unique($.unique($.unique($.unique(arrayFilters)))); // /!\ToDo still don't understand why I have to do stack all ugly recursive unique: awful
+           // console.log("Icons List", this._iconsList);
+            // $.each(this._iconsList,function(index,item){
+            //   $.merge(arrayFilters,item.categories);
+            // });           ;
+            arrayFilters = _.pluck(this._iconsList, "categories");
+            return  _.uniq(_.flatten(arrayFilters));
 
         },
 
